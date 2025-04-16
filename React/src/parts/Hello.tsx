@@ -1,11 +1,13 @@
 import hello_img_right from '../assets/hello-image-right.png';
 import arrow_down from '../assets/arow-down.png';
 import AddMenu from './micro/add_menu';
+import AddMenuMobile from './micro/add_menu_mobile';
 
 export default function Hello() {
     return (
         <div className="hello">
             <AddMenu/>
+            <AddMenuMobile/>
 
             <div className="main-block">
                 <div className="content">

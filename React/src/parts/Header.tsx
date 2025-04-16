@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 export default function Header() {
     const [clicked, setClicked] = useState(false);
     const [headerMenu, setHeaderMenu] = useState(false);
+    const [mobileMenuState, setMobileMenuState] = useState<number>(0);
 
     useEffect(() => {
         const add_menu = document.querySelector('.additional-menu'),
@@ -38,6 +39,10 @@ export default function Header() {
     }, [clicked]);
 
     useEffect(() => {
+
+    }, [mobileMenuState]);
+
+    useEffect(() => {
         const headerMenu = document.querySelector('.menu');
 
         if (headerMenu) {
@@ -45,35 +50,60 @@ export default function Header() {
         }
     }, [headerMenu]);
 
+    console.log(window.innerWidth);
+
     const handleClick = () => { setClicked(!clicked); }
     const handleHeaderClick = () => { setHeaderMenu(!headerMenu); }
+    const hadnleMobileHeaderClick = () => {
+        const add_mob_menu = document.querySelector('.additional-menu-mobile'),
+            add_menu = document.querySelector('.additional-menu'),
+            app_header = document.querySelector('.App-header');
+
+        if (add_mob_menu && add_menu && app_header) {
+
+            if (!add_mob_menu.classList.contains('active') && !add_menu.classList.contains('active')) {
+                add_mob_menu.classList.add('active');
+                document.querySelector('.App-header')?.classList.add('active');
+            }
+            else if (add_mob_menu.classList.contains('active') && !add_menu.classList.contains('active')) {
+                add_mob_menu.classList.remove('active');
+                document.querySelector('.App-header')?.classList.remove('active');
+            }
+            else if (!add_mob_menu.classList.contains('active') && add_menu.classList.contains('active')) {
+                add_menu.classList.remove('active');
+                document.querySelector('.App-header')?.classList.remove('active');
+            }
+        }
+    }
 
     return (
         <header className="App-header">
             <div className="menu-and-logo">
                 <div className="logo">
                     <img src={logo} className="logo-img" alt="logo" />
-                    <div className="line"></div>
-                    <div className="title">
+                    {window.innerWidth > 1280 && <div className="line"></div>}
+                    {window.innerWidth > 1280 && <div className="title">
                         Інститут лідерства,
                         управління і коучингу
-                    </div>
+                    </div>}
                 </div>
 
-                <div className="menu">
-                    <div className="menu-item item-course hoverd" onClick={handleClick}>
-                        <div className="title">Курси</div>
-                        <img src={arrow} alt="" className="arrow-menu item-course-arrow" />
+                {window.innerWidth > 550 &&
+                    <div className="menu">
+                        <div className="menu-item item-course hoverd" onClick={handleClick}>
+                            <div className="title">Курси</div>
+                            <img src={arrow} alt="" className="arrow-menu item-course-arrow" />
+                        </div>
+                        <div className="menu-item hoverd">
+                            <div className="title">Тренінги</div>
+                            <img src={arrow} alt="" className="arrow-menu" />
+                        </div>
+                        <div className="menu-item hoverd">
+                            <div className="title">Аналітичний центр</div>
+                        </div>
                     </div>
-                    <div className="menu-item hoverd">
-                        <div className="title">Тренінги</div>
-                        <img src={arrow} alt="" className="arrow-menu" />
-                    </div>
-                    <div className="menu-item hoverd">
-                        <div className="title">Аналітичний центр</div>
-                    </div>
-                </div>
-                <img src={other} alt="" className="other-img" onClick={handleHeaderClick} />
+                }
+                {window.innerWidth > 550 && <img src={other} alt="" className="other-img" onClick={handleHeaderClick} />}
             </div>
 
             <div className="social-and-sign">
@@ -82,13 +112,15 @@ export default function Header() {
                     <div className="phone-number">+38 (099) 123-4567</div>
                 </div>
 
+                {window.innerWidth > 550 &&
                 <div className="socials">
                     <img src={instagram} alt="" className="social" />
                     <img src={facebook} alt="" className="social" />
                     <img src={youtube} alt="" className="social" />
                 </div>
+                }
 
-                <div className="line-bolder"></div>
+                {window.innerWidth > 550 && <div className="line-bolder"></div>}
 
                 <img src={health_care} alt="" className="health-care-img" />
 
@@ -97,6 +129,7 @@ export default function Header() {
                 <div className="sign-up">
                     <img src={profile} alt="" className="profile-img" />
                     <div className="title">Увійти</div>
+                    {window.innerWidth < 550 && <img src={other} alt="" className="other-img-menu" onClick={hadnleMobileHeaderClick} />}
                 </div>
             </div>
         </header>
