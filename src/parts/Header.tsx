@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 
 export default function Header() {
     const [clicked, setClicked] = useState(false);
+    const [headerMenu, setHeaderMenu] = useState(false);
 
     useEffect(() => {
         const add_menu = document.querySelector('.additional-menu'),
@@ -36,7 +37,16 @@ export default function Header() {
         }
     }, [clicked]);
 
+    useEffect(() => {
+        const headerMenu = document.querySelector('.menu');
+
+        if (headerMenu) {
+            headerMenu.classList.toggle('active');
+        }
+    }, [headerMenu]);
+
     const handleClick = () => { setClicked(!clicked); }
+    const handleHeaderClick = () => { setHeaderMenu(!headerMenu); }
 
     return (
         <header className="App-header">
@@ -62,8 +72,8 @@ export default function Header() {
                     <div className="menu-item hoverd">
                         <div className="title">Аналітичний центр</div>
                     </div>
-                    <img src={other} alt="" className="other-img" />
                 </div>
+                <img src={other} alt="" className="other-img" onClick={handleHeaderClick} />
             </div>
 
             <div className="social-and-sign">
