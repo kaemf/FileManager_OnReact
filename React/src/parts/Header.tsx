@@ -7,6 +7,7 @@ import facebook from '../assets/facebook.png';
 import youtube from '../assets/youtube.png';
 import health_care from '../assets/health-care.png';
 import profile from '../assets/profile.png';
+import resetOrClose from '../assets/reset-or-close.png';
 import { useEffect, useState } from 'react';
 
 export default function Header() {
@@ -39,10 +40,6 @@ export default function Header() {
     }, [clicked]);
 
     useEffect(() => {
-
-    }, [mobileMenuState]);
-
-    useEffect(() => {
         const headerMenu = document.querySelector('.menu');
 
         if (headerMenu) {
@@ -50,27 +47,39 @@ export default function Header() {
         }
     }, [headerMenu]);
 
-    console.log(window.innerWidth);
-
     const handleClick = () => { setClicked(!clicked); }
-    const handleHeaderClick = () => { setHeaderMenu(!headerMenu); }
-    const hadnleMobileHeaderClick = () => {
+    const handleHeaderClick = (e: React.MouseEvent<HTMLImageElement>) => { 
+        setHeaderMenu(!headerMenu); 
+        if (!headerMenu){
+            const clickedElement = (e.target as HTMLImageElement);
+            clickedElement.src = resetOrClose;
+        }
+        else {
+            const clickedElement = (e.target as HTMLImageElement);
+            clickedElement.src = other;
+        }
+    }
+    const hadnleMobileHeaderClick = (e: React.MouseEvent<HTMLImageElement>) => {
         const add_mob_menu = document.querySelector('.additional-menu-mobile'),
             add_menu = document.querySelector('.additional-menu'),
-            app_header = document.querySelector('.App-header');
+            app_header = document.querySelector('.App-header'),
+            clickedElement = (e.target as HTMLImageElement);
 
         if (add_mob_menu && add_menu && app_header) {
 
             if (!add_mob_menu.classList.contains('active') && !add_menu.classList.contains('active')) {
                 add_mob_menu.classList.add('active');
+                clickedElement.src = resetOrClose;
                 document.querySelector('.App-header')?.classList.add('active');
             }
             else if (add_mob_menu.classList.contains('active') && !add_menu.classList.contains('active')) {
                 add_mob_menu.classList.remove('active');
+                clickedElement.src = other;
                 document.querySelector('.App-header')?.classList.remove('active');
             }
             else if (!add_mob_menu.classList.contains('active') && add_menu.classList.contains('active')) {
                 add_menu.classList.remove('active');
+                clickedElement.src = other;
                 document.querySelector('.App-header')?.classList.remove('active');
             }
         }
@@ -103,7 +112,7 @@ export default function Header() {
                         </div>
                     </div>
                 }
-                {window.innerWidth > 550 && <img src={other} alt="" className="other-img" onClick={handleHeaderClick} />}
+                {window.innerWidth > 550 && <img src={other} alt="" className="other-img" onClick={(e) => handleHeaderClick(e)} />}
             </div>
 
             <div className="social-and-sign">
@@ -129,7 +138,7 @@ export default function Header() {
                 <div className="sign-up">
                     <img src={profile} alt="" className="profile-img" />
                     <div className="title">Увійти</div>
-                    {window.innerWidth < 550 && <img src={other} alt="" className="other-img-menu" onClick={hadnleMobileHeaderClick} />}
+                    {window.innerWidth < 550 && <img src={other} alt="" className="other-img-menu" onClick={(e) => hadnleMobileHeaderClick(e)} />}
                 </div>
             </div>
         </header>

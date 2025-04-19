@@ -2,15 +2,17 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 type ComboBoxProps = {
-  onChange: (value: string | null) => void;
+  onChange: (value: string,) => void;
+  value: string;
 };
 
 const options = [
   { label: 'Name', value: 'name' },
-  { label: 'Date', value: 'date' }
+  { label: 'Date', value: 'uploaded_at' }
 ];
 
-export default function ComboBox({ onChange }: ComboBoxProps) {
+export default function ComboBox({ value, onChange }: ComboBoxProps) {
+  const selectedOption = options.find(option => option.value === value) || null;
     return (
         <Autocomplete
         options={options}
@@ -40,8 +42,10 @@ export default function ComboBox({ onChange }: ComboBoxProps) {
           }
         }}
         getOptionLabel={(option) => option.label}
+        defaultValue={options[0]}
+        value={selectedOption}
         onChange={(event, newValue) => {
-          onChange(newValue ? newValue.value : null);
+          onChange(newValue ? newValue.value : '');
         }}
         renderInput={(params) => <TextField {...params} label="Sorting" />}
       />

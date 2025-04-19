@@ -119,6 +119,10 @@
   height: 43px;
 }
 
+.other-img{
+  cursor: pointer;
+}
+
 .phone, .sign-up{
   display: flex;
   gap: 8px;
@@ -158,6 +162,18 @@
 
 .sort-container{
   padding: 10px;
+  margin-left: 5px;
+  border-radius: 8px;
+  transition: all .3s ease;
+}
+
+.sort-container:hover{
+  background: #0000002c;
+  cursor: pointer;
+}
+
+.sort-container.active{
+  background: #D9F1FF;;
 }
 
 .sort-container > .sort{
@@ -326,7 +342,7 @@
 
 .filter{
   display: flex;
-  justify-content: space-between;
+  gap: 50px;
   align-items: center;
 }
 
@@ -536,6 +552,11 @@
   height: 20px;
 }
 
+.decline-all-filters{
+  width: 28px;
+  height: 28px;
+}
+
 .group-title{
   display: flex;
   gap: 10px;
@@ -616,6 +637,52 @@
   transform: translateX(10px);
 }
 
+.decline-all-filters-container{
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.decline-all-filters-container:hover{
+  background: #0000002c;
+}
+
+@media (max-width: 1700px) {
+  .content > .title{
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 75px;
+    line-height: 75px;
+    text-transform: none;
+  }
+
+  .main-block > .content{
+    max-width: 506px;
+  }
+
+  .pages-list{
+    margin-top: 0px;
+  }
+
+  /* .main-block{
+    justify-content: space-evenly;
+  } */
+
+  .content > .description{
+    font-family: 'Montserrat';
+    color: #424242;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  .hello-img-right{
+    margin-top: 0px;
+    width: 750px;
+    /* height: 828px; */
+  }
+}
+
 @media (max-width: 1279px) {
   .content > .title{
     font-family: 'Noto Sans';
@@ -686,9 +753,39 @@
     max-width: 93.7px;
     margin-left: 30px;
   }
+
+  .pages-list{
+    margin-top: 15px;
+  }
+
+  .pages-list > .page{
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .arrow-down-continue{
+    margin-top: 25px;
+    width: 26px
+  }
 }
 
 @media (max-width: 550px) {
+  .instrument-panel{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .instrument-panel > .instruments, .instrument-panel > .filter{
+    width: 100%;
+    justify-content: space-between;
+    gap: 0px;
+  }
+
+  .sort-container{
+    margin-left: 2px;
+  }
+
   .content > .title{
     font-family: 'Noto Sans';
     font-style: normal;
@@ -736,9 +833,9 @@
     padding: 20px 16px;
   }
 
-  .main-filter-container{
+  /* .main-filter-container{
     gap: 20px;
-  }
+  } */
 
   .App-header{
     padding: 20px 16px;
@@ -749,11 +846,6 @@
   }
 
   .pages-list{
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    width: 100%;
-    height: 16px;
     margin-top: 0px;
   }
 
@@ -823,6 +915,7 @@
   left: 0px;
   padding: 10px;
   display: flex;
+  align-items: flex-end;
   flex-direction: column;
   gap: 10px;
   background: white;
@@ -838,4 +931,51 @@
   visibility: visible;
   opacity: 1;
   transform: translateY(0px);
+}
+
+.file-name-and-edit-field{
+  width: 100%;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.file-name-and-edit-field > .edit-field, .bulk-edit-field {
+  text-align: center;
+  background: transparent;
+  display: none;
+  border: none;
+  border-bottom: 1px solid #000;
+  outline: none;
+}
+
+.bulk-edit-field{
+  display: block !important;
+  width: 0;
+  padding: 0;
+  transition: all .3s ease;
+}
+
+.bulk-edit-field.active{
+  width: 60px;
+  padding: 4px;
+  margin-right: 5px;
+}
+
+.instrument-container.edit{
+  display: flex;
+}
+
+.file-name-and-edit-field > .file-name{
+  display: block;
+}
+
+.file-name-and-edit-field > .edit-field.active{
+  display: block;
+}
+
+.file-name-and-edit-field > .file-name.unactive{
+  display: none;
 }
